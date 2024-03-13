@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
 
-const rootApi = process.env.API_URL;
+const rootApi = process.env.NEXT_PUBLIC_API_URL;
 
 export const {
     auth,

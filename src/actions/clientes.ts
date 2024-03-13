@@ -1,6 +1,6 @@
 'use server';
 
-const rootApi = process.env.API_URL;
+const rootApi = process.env.NEXT_PUBLIC_API_URL;
 
 import { auth } from '@/auth';
 import { IGenericResponse } from '@/models/general';
