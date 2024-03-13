@@ -9,7 +9,6 @@ export default function Logout() {
     }
     return (
         <>
-            <div>{session.data.user.token}</div>
             <div><Button onClick={() => signOut()}>Log Out</Button></div>
         </>
     )
