@@ -45,10 +45,12 @@ interface AddClienteFormState {
         direccion?: string[],
         authenthication?: string[],
     }
+    clienteId: string | undefined;
 }
 
 export async function AddCliente(formState: AddClienteFormState, formData: FormData): Promise<AddClienteFormState> {
     const session = await auth();
+    console.log('formState.clienteId', formState.clienteId);
     try {
         const result = addClienteSchema.safeParse({
             numeroIdentificacion: formData.get('numeroIdentificacion'),
@@ -63,12 +65,14 @@ export async function AddCliente(formState: AddClienteFormState, formData: FormD
             return {
                 message: 'validation error',
                 errors: result.error.flatten().fieldErrors,
+                clienteId: ''
             };
         }
 
         if (session?.user) {
-            const res = await fetch(`${rootApi}/api/cliente`, {
-                method: 'POST',
+            const endpoint = `${rootApi}/api/cliente${formState.clienteId ? `?clienteId=${formState.clienteId}` : ''}`
+            const res = await fetch(endpoint, {
+                method: `${formState.clienteId ? 'PUT' : 'POST'}`,
                 body: JSON.stringify({
                     razonSocial: result.data.razonSocial,
                     tipoIdentificacion: result.data.tipoIdentificacion,
@@ -89,7 +93,15 @@ export async function AddCliente(formState: AddClienteFormState, formData: FormD
                 revalidatePath('/clientes');
                 return {
                     message: 'success',
-                    errors: {}
+                    errors: {},
+                    clienteId: ''
+                }
+            }
+            if (respuesta.errorMessage) {
+                return {
+                    message: 'error',
+                    errors: { authenthication: [respuesta.errorMessage] },
+                    clienteId: ''
                 }
             }
             if (respuesta.errorMessage) {
@@ -104,7 +116,8 @@ export async function AddCliente(formState: AddClienteFormState, formData: FormD
             message: 'error',
             errors: {
                 authenthication: ['Error al añadir el cliente']
-            }
+            },
+            clienteId: ''
         }
     } catch (error) {
         throw error;

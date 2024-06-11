@@ -10,12 +10,18 @@ import {
     TableRow,
     Pagination,
     Input,
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    useDisclosure,
 } from '@nextui-org/react';
 import { useCallback, useMemo, useState } from 'react';
 import { SearchIcon } from '../icons/table/search-icon';
 import Confirm from '../modal/Modal';
 import * as actions from '@/actions';
 import AddCliente from './add-cliente';
+import AddEditClienteForm from './addEditClienteForm';
 
 export type ClientesTableProps = {
     clientes: Cliente[];
@@ -23,9 +29,11 @@ export type ClientesTableProps = {
 
 
 export default function ClientesTable({ clientes }: ClientesTableProps) {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [filterValue, setFilterValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [clienteDelete, setClienteDelete] = useState<Cliente | null>(null);
+    const [clienteEditar, setClienteEditar] = useState<Cliente | undefined>(undefined);
     const hasSearchFilter = Boolean(filterValue);
 
     const filteredItems = useMemo(() => {
@@ -73,12 +81,21 @@ export default function ClientesTable({ clientes }: ClientesTableProps) {
         setClienteDelete(cliente);
     }
 
+    const handleEditClick = (cliente: Cliente) => {
+        setClienteEditar(cliente);
+        onOpen();
+    }
+
     const handleConfirm = async () => {
         if (clienteDelete?.id) {
             const res = await actions.DeleteCliente(clienteDelete?.id);
             console.log(res.success);
         }
         setIsModalOpen(false);
+    }
+
+    const handleCancelClick = () => {
+        setClienteEditar(undefined);
     }
 
     const topContent = useMemo(() => {
@@ -136,11 +153,31 @@ export default function ClientesTable({ clientes }: ClientesTableProps) {
                 <TableBody items={items} emptyContent={"No hay clientes para mostrar."}>
                     {(item) => (
                         <TableRow key={item.id}>
-                            {(columnKey) => <TableCell>{RenderCell({ cliente: item, columnKey: columnKey, onClick: handleClick })}</TableCell>}
+                            {(columnKey) => <TableCell>{RenderCell({ cliente: item, columnKey: columnKey, onClick: handleClick, onEditClick: handleEditClick })}</TableCell>}
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
+            {clienteEditar && (
+                <Modal
+                    isOpen={isOpen}
+                    onOpenChange={onOpenChange}
+                    placement='top-center'
+                >
+                    <ModalContent>
+                        {(onClose) => (
+                            <>
+                                <ModalHeader>
+                                    Editar Cliente
+                                </ModalHeader>
+                                <ModalBody>
+                                    <AddEditClienteForm onCancelClick={handleCancelClick} cliente={clienteEditar} />
+                                </ModalBody>
+                            </>
+                        )}
+                    </ModalContent>
+                </Modal>
+            )}
         </div>
     )
 }
