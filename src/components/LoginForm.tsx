@@ -35,7 +35,7 @@ export default function LoginForm() {
                     </div>
                     <div className={styles.subTitleContainer}>
                         <div className={styles.labelContainer}>
-                            <label className={styles.labelSubtitle}>Bienvenido</label>
+                            <label className={styles.labelSubtitle}>Inicio de sesión</label>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
