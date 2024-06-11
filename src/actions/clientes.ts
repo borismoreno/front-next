@@ -107,7 +107,8 @@ export async function AddCliente(formState: AddClienteFormState, formData: FormD
             if (respuesta.errorMessage) {
                 return {
                     message: 'error',
-                    errors: { authenthication: [respuesta.errorMessage] }
+                    errors: { authenthication: [respuesta.errorMessage] },
+                    clienteId: ''
                 }
             }
         }
