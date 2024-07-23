@@ -1,13 +1,14 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import styles from './loginform.module.css';
 import { Work_Sans } from 'next/font/google';
-import { Input, Button } from '@nextui-org/react';
+import { Input } from '@nextui-org/react';
 import * as actions from '@/actions';
 import { useState } from 'react';
 import { EyeSlashFilledIcon } from './icons/general/EyeSlashFilledIcon';
 import { EyeFilledIcon } from './icons/general/EyeFilledIcon';
+import { SubmitButton } from './login/submit-button';
 
 const workSans = Work_Sans({
     variable: '--font-work-sans',
@@ -22,7 +23,6 @@ export default function LoginForm() {
     const [isVisible, setIsVisible] = useState(false);
 
     const toggleVisibility = () => setIsVisible(!isVisible);
-    const { pending } = useFormStatus();
     return (
         <div className={workSans.variable}>
             <div className={styles.container}>
@@ -35,7 +35,7 @@ export default function LoginForm() {
                     </div>
                     <div className={styles.subTitleContainer}>
                         <div className={styles.labelContainer}>
-                            <label className={styles.labelSubtitle}>Bienvenido</label>
+                            <label className={styles.labelSubtitle}>Inicio de sesión</label>
                         </div>
                     </div>
                     <div className={styles.inputContainer}>
@@ -71,7 +71,7 @@ export default function LoginForm() {
                         />
                     </div>
                     <div className={styles.buttonContainer}>
-                        <Button className={styles.button} type='submit' isDisabled={pending}>Ingresar</Button>
+                        <SubmitButton />
                     </div>
                     {formState.errors.credentials && <div className={styles.error}>{formState.errors.credentials}</div>}
                 </form>

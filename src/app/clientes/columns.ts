@@ -2,6 +2,7 @@ export type Cliente = {
     id: string;
     razonSocial: string;
     numeroIdentificacion: string;
+    tipoIdentificacion: string;
     telefono: string;
     direccion: string;
     mail: string;

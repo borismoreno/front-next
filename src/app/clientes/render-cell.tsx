@@ -8,9 +8,10 @@ interface Props {
     cliente: Cliente;
     columnKey: string | React.Key;
     onClick: (cliente: Cliente) => void;
+    onEditClick: (clienteId: Cliente) => void;
 }
 
-export default function RenderCell({ cliente, columnKey, onClick }: Props) {
+export default function RenderCell({ cliente, columnKey, onClick, onEditClick }: Props) {
     const cellValue = cliente[columnKey as keyof Cliente];
     switch (columnKey) {
         // case "razonSocial":
@@ -29,7 +30,7 @@ export default function RenderCell({ cliente, columnKey, onClick }: Props) {
                 <div className="flex items-center gap-4 ">
                     <div>
                         <Tooltip content="Editar cliente" color="secondary">
-                            <button onClick={() => console.log("Edit user", cliente.id)}>
+                            <button onClick={() => onEditClick(cliente)}>
                                 <EditIcon size={20} fill="#979797" />
                             </button>
                         </Tooltip>
