@@ -22,7 +22,7 @@ export default function AddEditClienteForm({ cliente, onCancelClick }: IAddEditC
     const [formState, action] = useFormState(actions.AddCliente, {
         message: '',
         errors: {},
-        clienteId: cliente?.id,
+        clienteId: cliente?._id,
     });
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function AddEditClienteForm({ cliente, onCancelClick }: IAddEditC
                 autoComplete='off'
                 variant='bordered'
                 className='my-4'
-                defaultValue={cliente?.numeroIdentificacion}
+                defaultValue={cliente?.NumeroIdentificacion}
             // value={cliente?.numeroIdentificacion}
             />
             <Select
@@ -49,7 +49,7 @@ export default function AddEditClienteForm({ cliente, onCancelClick }: IAddEditC
                 isInvalid={!!formState.errors.tipoIdentificacion}
                 errorMessage={formState.errors.tipoIdentificacion?.join(', ')}
                 variant='bordered'
-                defaultSelectedKeys={[cliente?.tipoIdentificacion || '']}
+                defaultSelectedKeys={[cliente?.TipoIdentificacion || '']}
             // value={cliente?.tipoIdentificacion}
             >
                 {tiposIdentificacion.map((identificacion) => (
@@ -66,7 +66,7 @@ export default function AddEditClienteForm({ cliente, onCancelClick }: IAddEditC
                 autoComplete='off'
                 variant='bordered'
                 className='my-4'
-                defaultValue={cliente?.razonSocial}
+                defaultValue={cliente?.RazonSocial}
             // value={cliente?.razonSocial}
             />
             <Input
@@ -77,7 +77,7 @@ export default function AddEditClienteForm({ cliente, onCancelClick }: IAddEditC
                 autoComplete='off'
                 variant='bordered'
                 className='my-4'
-                defaultValue={cliente?.telefono}
+                defaultValue={cliente?.Telefono}
             />
             <Input
                 label='Email'
@@ -87,7 +87,7 @@ export default function AddEditClienteForm({ cliente, onCancelClick }: IAddEditC
                 autoComplete='off'
                 variant='bordered'
                 className='my-4'
-                defaultValue={cliente?.mail}
+                defaultValue={cliente?.Mail}
             />
             <Input
                 label='Dirección'
@@ -97,7 +97,7 @@ export default function AddEditClienteForm({ cliente, onCancelClick }: IAddEditC
                 autoComplete='off'
                 variant='bordered'
                 className='my-4'
-                defaultValue={cliente?.direccion}
+                defaultValue={cliente?.Direccion}
             />
             <div className='flex items-center justify-evenly mt-4 mb-4'>
                 <Button color='danger' variant='flat' onClick={onCancelClick}>

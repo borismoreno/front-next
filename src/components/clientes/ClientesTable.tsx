@@ -41,9 +41,9 @@ export default function ClientesTable({ clientes }: ClientesTableProps) {
 
         if (hasSearchFilter) {
             filteredClientes = filteredClientes.filter(cliente => {
-                return cliente.razonSocial.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()) ||
-                    cliente.mail.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()) ||
-                    cliente.numeroIdentificacion.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+                return cliente.RazonSocial.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()) ||
+                    cliente.Mail.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()) ||
+                    cliente.NumeroIdentificacion.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
             });
         }
 
@@ -87,8 +87,8 @@ export default function ClientesTable({ clientes }: ClientesTableProps) {
     }
 
     const handleConfirm = async () => {
-        if (clienteDelete?.id) {
-            const res = await actions.DeleteCliente(clienteDelete?.id);
+        if (clienteDelete?._id) {
+            const res = await actions.DeleteCliente(clienteDelete?._id);
             console.log(res.success);
         }
         setIsModalOpen(false);
@@ -121,7 +121,7 @@ export default function ClientesTable({ clientes }: ClientesTableProps) {
 
     return (
         <div className='w-full flex flex-col gap-4'>
-            {clienteDelete && <Confirm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} message={`Seguro que desea eliminar el cliente ${clienteDelete.razonSocial}?`} onConfirm={handleConfirm} />}
+            {clienteDelete && <Confirm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} message={`Seguro que desea eliminar el cliente ${clienteDelete.RazonSocial}?`} onConfirm={handleConfirm} />}
             <Table
                 aria-label='Tabla de clientes'
                 topContent={topContent}
@@ -152,7 +152,7 @@ export default function ClientesTable({ clientes }: ClientesTableProps) {
                 </TableHeader>
                 <TableBody items={items} emptyContent={"No hay clientes para mostrar."}>
                     {(item) => (
-                        <TableRow key={item.id}>
+                        <TableRow key={item._id}>
                             {(columnKey) => <TableCell>{RenderCell({ cliente: item, columnKey: columnKey, onClick: handleClick, onEditClick: handleEditClick })}</TableCell>}
                         </TableRow>
                     )}

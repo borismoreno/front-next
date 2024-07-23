@@ -70,7 +70,7 @@ export async function AddCliente(formState: AddClienteFormState, formData: FormD
         }
 
         if (session?.user) {
-            const endpoint = `${rootApi}/api/cliente${formState.clienteId ? `?clienteId=${formState.clienteId}` : ''}`
+            const endpoint = `${rootApi}/api/cliente${formState.clienteId ? `/${formState.clienteId}` : ''}`
             const res = await fetch(endpoint, {
                 method: `${formState.clienteId ? 'PUT' : 'POST'}`,
                 body: JSON.stringify({
@@ -149,7 +149,7 @@ export async function DeleteCliente(clienteId: string): Promise<IGenericResponse
     const session = await auth();
 
     if (session?.user) {
-        const res = await fetch(`${rootApi}/api/cliente?clienteId=${clienteId}`, {
+        const res = await fetch(`${rootApi}/api/cliente/${clienteId}`, {
             method: 'DELETE',
             headers: {
                 //@ts-ignore

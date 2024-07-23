@@ -1,24 +1,24 @@
 export type Cliente = {
-    id: string;
-    razonSocial: string;
-    numeroIdentificacion: string;
-    tipoIdentificacion: string;
-    telefono: string;
-    direccion: string;
-    mail: string;
+    _id: string;
+    RazonSocial: string;
+    NumeroIdentificacion: string;
+    TipoIdentificacion: string;
+    Telefono: string;
+    Direccion: string;
+    Mail: string;
 }
 
 export const columns = [
     {
-        key: 'razonSocial',
+        key: 'RazonSocial',
         label: 'Razón Social'
     },
     {
-        key: 'numeroIdentificacion',
+        key: 'NumeroIdentificacion',
         label: 'Número Identificación'
     },
     {
-        key: 'mail',
+        key: 'Mail',
         label: 'Mail'
     },
     {
