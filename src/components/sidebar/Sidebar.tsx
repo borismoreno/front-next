@@ -41,12 +41,26 @@ export const SidebarWrapper = () => {
                             isActive={pathName === '/'}
                             href='/'
                         />
-                        <SidebarMenu title='Main menu'>
+                        <SidebarMenu title='Mantenimiento'>
                             <SidebarItem
                                 isActive={pathName === '/clientes'}
                                 title='Clientes'
                                 icon={<AccountsIcon />}
-                                href='clientes'
+                                href='/clientes'
+                            />
+                            <SidebarItem
+                                isActive={pathName === '/productos'}
+                                title='Productos'
+                                icon={<AccountsIcon />}
+                                href='/productos'
+                            />
+                        </SidebarMenu>
+                        <SidebarMenu title='Comprobantes'>
+                            <SidebarItem
+                                isActive={pathName.indexOf('facturas') > 0}
+                                title='Facturas'
+                                icon={<AccountsIcon />}
+                                href='/facturas'
                             />
                         </SidebarMenu>
                     </div>
